@@ -10,7 +10,7 @@ class Utilisateurs:
 
     def Create_utilisateur(self, nom, prenom, email, mot_de_passe):
         # Validation des données utilisateur
-        if not self.validation_email(email):
+        if not self.validation_email(email): 
             raise ValueError("Adresse email invalide.")
         if not self._validation_password(mot_de_passe):
             raise ValueError("Mot de passe invalide.")
@@ -82,3 +82,21 @@ class Utilisateurs:
         if not (has_uppercase and has_lowercase and has_digit):
             return False 
         return True
+    
+    def connexion(self, email, mot_de_passe):
+        # Valider les données avant de les envoyer à la base de données
+        if not self.validation_email(email):
+            raise ValueError("Adresse email invalide.")
+        
+        if not self._validation_password(mot_de_passe):
+            raise ValueError("Mot de passe invalide.")
+
+        # Vérifier si l'utilisateur existe dans la base de données
+        query = f'SELECT * FROM {self.table} WHERE email = %s AND mot_de_passe = %s'
+        params = (email, mot_de_passe)
+        result = self.database.fetch(query, params)
+
+        if result:
+            return True  # Connexion réussie
+        else:
+            return False  # Échec de la connexion
