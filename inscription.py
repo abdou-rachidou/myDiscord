@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import Label, Entry, Button, messagebox
 from utilisateurs import Utilisateurs
 from PIL import Image, ImageTk
+import os
 
 class PageInscription:
     def __init__(self, root):
@@ -11,17 +12,18 @@ class PageInscription:
 
     def createUtilisateur(self):
         # Définir la géométrie pour agrandir la fenêtre
-        self.root.geometry("800x600")
+        self.root.geometry("1000x800")
         # Centrer la fenêtre par rapport à l'écran
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
-        x_position = (screen_width - 800) // 2
-        y_position = (screen_height - 600) // 2
-        self.root.geometry(f"800x600+{x_position}+{y_position}")
+        x_position = (screen_width - 1000) // 2
+        y_position = (screen_height - 800) // 2
+        self.root.geometry(f"1000x800+{x_position}+{y_position}")
 
         # Configurer les colonnes pour qu'elles s'étirent horizontalement
         self.root.columnconfigure(0, weight=1)
         self.root.columnconfigure(1, weight=1)
+        self.root.columnconfigure(2, weight=1)
 
         # Configurer les lignes pour qu'elles s'étirent verticalement
         for i in range(7):  # Augmenté à 7 pour ajouter une ligne pour le titre
@@ -31,30 +33,30 @@ class PageInscription:
         self.root.configure(bg="#313339")
 
         # Ajouter le titre au-dessus des labels
-        Label(self.root, text="INSCRIPTION", font=("Helvetica", 20), bg="#313339", fg="white").grid(row=0, column=0, columnspan=2, pady=(10, 0))
+        Label(self.root, text="Page d'inscription", font=("Helvetica", 20), bg="#313339", fg="white").grid(row=0, column=0, columnspan=3, pady=(10, 0))
 
         # Ajouter le logo
         self.ajouter_logo()
 
         # Création des labels et entry widgets pour chaque champ du produit
-        label_styles = {"font": ("Helvetica", 14), "bg": "#313339", "fg": "#8A8E92"}
-        entry_styles = {"bg": "#424549", "fg": "white"}
+        label_styles = {"font": ("Helvetica", 18), "bg": "#313339", "fg": "#8A8E92"}
+        entry_styles = {"font": ("Helvetica", 18), "bg": "#424549", "fg": "white"}
 
         Label(self.root, text="Nom :", **label_styles).grid(row=2, column=0, sticky="e", pady=(7, 0))
         self.nom_entry = Entry(self.root, **entry_styles)
-        self.nom_entry.grid(row=2, column=1, sticky="w", pady=(7, 0), ipady=3)
+        self.nom_entry.grid(row=2, column=1, pady=(7, 0), ipady=5, sticky="ew")  # Ajustement pour centrer l'entrée
 
         Label(self.root, text="Prenom :", **label_styles).grid(row=3, column=0, sticky="e", pady=(7, 0))
         self.prenom_entry = Entry(self.root, **entry_styles)
-        self.prenom_entry.grid(row=3, column=1, sticky="w", pady=(7, 0), ipady=3)
+        self.prenom_entry.grid(row=3, column=1, pady=(7, 0), ipady=5, sticky="ew")  # Ajustement pour centrer l'entrée
 
         Label(self.root, text="Email :", **label_styles).grid(row=4, column=0, sticky="e", pady=(7, 0))
         self.email_entry = Entry(self.root, **entry_styles)
-        self.email_entry.grid(row=4, column=1, sticky="w", pady=(7, 0), ipady=3)
+        self.email_entry.grid(row=4, column=1, pady=(7, 0), ipady=5, sticky="ew")  # Ajustement pour centrer l'entrée
 
         Label(self.root, text="Mot de passe :", **label_styles).grid(row=5, column=0, sticky="e", pady=(7, 0))
         self.mot_de_passe_entry = Entry(self.root, show="*", **entry_styles)
-        self.mot_de_passe_entry.grid(row=5, column=1, sticky="w", pady=(7, 0), ipady=3)
+        self.mot_de_passe_entry.grid(row=5, column=1, pady=(7, 0), ipady=5, sticky="ew")  # Ajustement pour centrer l'entrée
 
         # Changer la couleur de fond des boutons
         button_styles = {"bg": "#424549", "fg": "white"}
@@ -63,18 +65,30 @@ class PageInscription:
         cancel_button.grid(row=7, column=0, pady=10, sticky="nsew")
 
         save_button = Button(self.root, text="Enregistrer", command=self.save_user, **button_styles)
-        save_button.grid(row=7, column=1, pady=10, sticky="nsew")
+        save_button.grid(row=7, column=2, pady=10, sticky="nsew")
 
     def ajouter_logo(self):
+        # Obtenez le chemin absolu du répertoire du script
+        script_directory = os.path.dirname(os.path.abspath(__file__))
+
+        # Construisez le chemin complet vers l'image
+        image_path = os.path.join(script_directory, "images", "logo-discord.png")
+
         # Charger le logo
-        logo_image = Image.open("images/logo-discord.png")
-        logo_image = logo_image.resize((100, 100), Image.LANCZOS)
+        logo_image = Image.open(image_path)
+        
+        # Agrandir l'image de 5%
+        width, height = logo_image.size
+        new_width = int(width * 0.35)
+        new_height = int(height * 0.35)
+        logo_image = logo_image.resize((new_width, new_height), Image.LANCZOS)
+        
         logo_photo = ImageTk.PhotoImage(logo_image)
 
         # Créer un label pour afficher le logo
         logo_label = Label(self.root, image=logo_photo, bg="#313339")
         logo_label.image = logo_photo  # Gardez une référence pour éviter la suppression par le garbage collector
-        logo_label.grid(row=1, column=0, columnspan=2, pady=(10, 0))
+        logo_label.grid(row=1, column=0, columnspan=3, pady=(20, 0))  # Augmentez la valeur de pady pour ajuster l'espacement
 
     def save_user(self):
         nom = self.nom_entry.get()
