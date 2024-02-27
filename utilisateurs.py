@@ -6,7 +6,7 @@ class Utilisateurs:
 
     def __init__(self) -> None:
         self.table = 'utilisateurs'
-        self.database = Database(host='localhost', user='root', password='Wendya30@', database='mydiscord')
+        self.database = Database(host='abdou-rachidou-arouna.students-laplateforme.io', user='mydiscord1', password='Vkiy159!2', database='abdou-rachidou-arouna_mydiscord')
 
     def Create_utilisateur(self, nom, prenom, email, mot_de_passe):
         # Validation des données utilisateur
