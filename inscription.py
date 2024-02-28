@@ -11,12 +11,12 @@ class PageInscription:
         self.createUtilisateur()
 
     def createUtilisateur(self):
-        self.root.geometry("1000x800")
+        self.root.geometry("800x600")
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
-        x_position = (screen_width - 1000) // 2
-        y_position = (screen_height - 800) // 2
-        self.root.geometry(f"1000x800+{x_position}+{y_position}")
+        x_position = (screen_width - 800) // 2
+        y_position = (screen_height - 600) // 2
+        self.root.geometry(f"800x600+{x_position}+{y_position}")
 
         self.root.columnconfigure(0, weight=1)
         self.root.columnconfigure(1, weight=1)
@@ -47,8 +47,8 @@ class PageInscription:
         self.mot_de_passe_entry.grid(row=5, column=1, pady=(7, 0), ipady=5, sticky="ew")
 
         button_styles = {"bg": "#5F70BE", "fg": "white", "font": ("Helvetica", 16), "bd": 0, "relief": tk.FLAT, "border": 0}
+        
 
-        # Déterminer la largeur des boutons en fonction du plus long texte
         button_width = max(len("Annuler"), len("Enregistrer"))
 
         cancel_button = Button(self.root, text="Annuler", command=self.root.destroy, width=button_width, **button_styles)
