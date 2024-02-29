@@ -73,7 +73,7 @@ class ChatPage(customtkinter.CTk):
         contenu_message = self.message_entry.get("1.0", tk.END).strip()
 
         # Définir une valeur par défaut pour la salle de chat
-        default_room_id = "4"
+        default_room_id = "1"
 
         # Vérifier si le contenu du message n'est pas vide
         if not contenu_message:
@@ -104,6 +104,7 @@ class ChatPage(customtkinter.CTk):
 
         # Créer le message en utilisant le contenu, l'utilisateur actuel, le nom de la salle, etc.
         self.message.create_message(contenu_message, current_user_id, room_id)
+        self.afficher_message()
 
 
 app = ChatPage()
