@@ -42,6 +42,9 @@ class ChatPage(customtkinter.CTk):
 
         # Entrée de texte pour saisir le message
         self.message_entry = tk.Text(self, wrap=tk.WORD, height=5, width=50, font=("Arial", 17))
+        self.message_entry.insert("1.0", "Tapez votre message ici")
+        self.message_entry.bind("<FocusIn>", self.clear_placeholder)
+        self.message_entry.bind("<FocusOut>", self.restore_placeholder)
         self.message_entry.grid(row=1, padx=10, pady=10)
 
         # Bouton pour envoyer le message
@@ -74,10 +77,32 @@ class ChatPage(customtkinter.CTk):
             self.message_text.yview(tk.END)
 
 
-            
+    def clear_placeholder(self, event):
+        current_content = self.message_entry.get("1.0", "end-1c")
+        if current_content == "Tapez votre message ici":
+            self.message_entry.delete("1.0", tk.END)
+            self.message_entry.config(fg='black')  # Change la couleur du texte pour distinguer du texte saisi
+
+
+    def restore_placeholder(self, event):
+        current_content = self.message_entry.get("1.0", "end-1c")
+        if not current_content.strip():
+            self.set_placeholder()
+
+    def set_placeholder(self):
+        self.message_entry.delete("1.0", tk.END)
+        self.message_entry.insert("1.0", "Tapez votre message ici")
+        self.message_entry.config(fg='blue')  # Change la couleur du texte pour distinguer du texte saisi
+
+
     def send_message(self):
         # Récupérer le contenu du message depuis l'entrée de texte
         contenu_message = self.message_entry.get("1.0", tk.END).strip()
+
+        # Vérifier si le contenu du message est égal au placeholder
+        if contenu_message == "Tapez votre message":
+            print("Le contenu du message est vide.")
+            return  # Ne rien faire si le contenu est égal au placeholder
 
         # Définir une valeur par défaut pour la salle de chat
         default_room_id = "1"
@@ -99,7 +124,6 @@ class ChatPage(customtkinter.CTk):
         # Utilisez la méthode get_room_name_by_id pour obtenir dynamiquement le nom de la salle actuelle
         room_name = "Club de Volley ball"
         
-
         # Ajoutez des impressions pour vérifier les valeurs
         print(f"contenu_message: {contenu_message}")
         print(f"current_user_id: {current_user_id}")
