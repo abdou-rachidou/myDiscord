@@ -28,9 +28,9 @@ class ChatPage(customtkinter.CTk):
 
 
     
-        # Utilisez un widget Text au lieu d'une Listbox
         self.message_text = tk.Text(self, wrap=tk.WORD, selectbackground="lightgrey", height=15, width=50, font=("Arial", 16))
         self.message_text.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
+        self.message_text.config(state=tk.DISABLED)  # Rendre le widget Text en lecture seule
 
 
         # Ajouter une barre de défilement verticale à la liste
@@ -52,22 +52,29 @@ class ChatPage(customtkinter.CTk):
         self.after(1, self.afficher_message)
 
     def afficher_message(self):
-        # Effacer le contenu actuel de la Listbox
-        self.message_text.delete("1.0", tk.END)
         # Récupérer la liste des messages depuis la base de données
         messages_list = self.message.read_messages()
 
-        # Ajouter chaque message à la Listbox
+        # Effacer le contenu actuel du widget Text
+        self.message_text.config(state=tk.NORMAL)  # Autoriser les modifications pour effacer le contenu
+        self.message_text.delete("1.0", tk.END)
+        self.message_text.config(state=tk.DISABLED)  # Revenir en mode lecture seule
+
+        # Ajouter chaque message au widget Text
         for message in messages_list:
             # Format du message avec nom et date au-dessus
             formatted_message = f"{message['content']}\n\n"
 
-            # Utiliser la méthode insert de la Listbox pour ajouter des éléments
+            # Utiliser la méthode insert du widget Text pour ajouter des éléments
+            self.message_text.config(state=tk.NORMAL)  # Autoriser les modifications pour ajouter du texte
             self.message_text.insert(tk.END, f"{message['sender']} - {message['timestamp']}\n{formatted_message}")
+            self.message_text.config(state=tk.DISABLED)  # Revenir en mode lecture seule
 
             # Faites défiler vers le bas pour voir les derniers messages
             self.message_text.yview(tk.END)
 
+
+            
     def send_message(self):
         # Récupérer le contenu du message depuis l'entrée de texte
         contenu_message = self.message_entry.get("1.0", tk.END).strip()
