@@ -1,12 +1,15 @@
 # messages.py
 from database import Database
+import re
 
 class Messages:
     def __init__(self) -> None:
         self.table = 'messages'
         self.database = Database(host='abdou-rachidou-arouna.students-laplateforme.io', user='mydiscord1', password='Vkiy159!2', database='abdou-rachidou-arouna_mydiscord')
 
+    
     def create_message(self, contenu_message, id_utilisateur, id_room):
+    
         query = f'INSERT INTO {self.table} (contenu_message, heure_publication, id_utilisateur, room_id) VALUES (%s, CURRENT_TIMESTAMP, %s, %s)'
         params = (contenu_message, id_utilisateur, id_room)
         self.database.executeQuery(query, params)
