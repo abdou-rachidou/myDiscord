@@ -35,7 +35,10 @@ class Database:
             self.connect()
             self.cursor.execute(query, params or ())
             result = self.cursor.fetchall()
-            return result
+            # Ajoutez des impressions pour débogage
+            print("Résultats de la base de données:", result)
+            return result if result is not None else []
+        
         except mysql.connector.Error as err:
             print(f"Erreur lors de l'exécution de la requête : {err}")
         finally:
