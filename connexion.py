@@ -3,6 +3,7 @@ from tkinter import Label, Entry, Button, messagebox
 from utilisateurs import Utilisateurs
 import os
 from PIL import Image, ImageTk
+from chatapp import ChatRoomPage
 
 class PageConnexion:
     def __init__(self, root):
@@ -107,7 +108,7 @@ class PageConnexion:
         if not self.utilisateur._validation_password(mot_de_passe):
             messagebox.showerror("Erreur", "Mot de passe invalide.")
             return
-        
+    
         is_connected = self.utilisateur.connexion(email, mot_de_passe)
         if is_connected:
             messagebox.showinfo("Succès", "Connexion réussie.")
@@ -115,8 +116,12 @@ class PageConnexion:
         else:
             messagebox.showerror("Erreur", "Connexion échouée. Vérifiez vos informations de connexion.")
 
+
+    
+
     def annuler(self):
         self.root.destroy()
+
 
 if __name__ == "__main__":
     root = tk.Tk()

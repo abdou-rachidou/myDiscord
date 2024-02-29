@@ -1,18 +1,10 @@
 import tkinter as tk
-from tkinter import ttk
 import customtkinter
 from chatroom import ChatRoom
 from utilisateurs import Utilisateurs
 from messages import Messages
 
-ROUGE = "red"
-BLEUE = "blue"
-ROSE = "pink"
-VERT = "green"
-GRIS = "grey"
-BLANC_F = "whitesmoke"
-BLANC = "white"
-NOIR = "black"
+
 
 class ChatPage(customtkinter.CTk):
     def __init__(self):
