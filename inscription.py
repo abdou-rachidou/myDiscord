@@ -117,8 +117,3 @@ class PageInscription:
             messagebox.showinfo("Succès", "Votre inscription est complète.")
         else:
             messagebox.showerror("Erreur", "Une erreur s'est produite lors de l'inscription.")
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = PageInscription(root)
-    root.mainloop()

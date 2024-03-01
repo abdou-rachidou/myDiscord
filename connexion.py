@@ -124,8 +124,3 @@ class PageConnexion:
 
     def annuler(self):
         self.root.destroy()
-
-# Instanciation de l'application
-root = tk.Tk()
-app = PageConnexion(root)
-root.mainloop()

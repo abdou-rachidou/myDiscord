@@ -123,7 +123,7 @@ class ChatPage(customtkinter.CTk):
             room_id = self.chatroom.get_current_room()
 
         # Vous pouvez utiliser les instances d'Utilisateurs et ChatRoom pour récupérer les informations
-        current_user_id = "3"
+        current_user_id = "2"
 
         # Utilisez la méthode get_room_name_by_id pour obtenir dynamiquement le nom de la salle actuelle
         room_name = "Club de Volley ball"
