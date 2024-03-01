@@ -27,7 +27,7 @@ class ChatRoomPage(customtkinter.CTk):
         # Set window geometry to be centered
         self.geometry(f"1100x600+{x_position}+{y_position}")
 
-        
+
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure((0, 1), weight=1)
 
