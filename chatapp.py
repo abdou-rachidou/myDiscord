@@ -85,6 +85,3 @@ class ChatRoomPage(customtkinter.CTk):
 
         # Afficher la fenêtre de chat
         chat_page.mainloop()
-
-app = ChatRoomPage()
-app.mainloop()
