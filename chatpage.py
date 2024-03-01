@@ -7,7 +7,7 @@ from messages import Messages
 
 
 class ChatPage(customtkinter.CTk):
-    def __init__(self):
+    def __init__(self, room_name=None):
         super().__init__()
 
         self.chatroom = ChatRoom()
@@ -15,6 +15,18 @@ class ChatPage(customtkinter.CTk):
         self.message = Messages()
         self.title("My Discord App")
         self.geometry("1100x600")
+
+        # Get screen width and height
+        screen_width = self.winfo_screenwidth()
+        screen_height = self.winfo_screenheight()
+
+        # Calculate window position to center it on the screen
+        x_position = (screen_width - 1100) // 2
+        y_position = (screen_height - 600) // 2
+
+        # Set window geometry to be centered
+        self.geometry(f"1100x600+{x_position}+{y_position}")
+        
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure((0, 1), weight=1)
 
@@ -128,7 +140,3 @@ class ChatPage(customtkinter.CTk):
         # Créer le message en utilisant le contenu, l'utilisateur actuel, le nom de la salle, etc.
         self.message.create_message(contenu_message, current_user_id, room_id)
         self.afficher_message()
-
-
-app = ChatPage()
-app.mainloop()
