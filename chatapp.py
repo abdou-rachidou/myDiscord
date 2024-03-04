@@ -66,6 +66,9 @@ class ChatRoomPage(customtkinter.CTk):
             # Obtenir le nom de la nouvelle salle de chat depuis l'Entry
             new_room_name = entry_new_chat.get()
             
+            # Appeler la méthode pour créer une nouvelle salle de chat
+            self.chatroom.creer_salle_chat(new_room_name)
+            
             self.chatroom.creer_salle_chat()
 
         button = customtkinter.CTkButton(self, text="Valider", command=button_callback)
