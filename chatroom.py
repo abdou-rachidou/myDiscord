@@ -7,9 +7,10 @@ class ChatRoom:
         self.current_room_id = None
 
 
-    def creer_salle_chat(self):
+    def creer_salle_chat(self, room_name):
         query = "INSERT INTO chatroom (room_name) VALUES (%s)"
-        self.database.executeQuery(query)
+        params = (room_name,)
+        self.database.executeQuery(query, params)
 
 
     def obtenir_salles_chat(self):
