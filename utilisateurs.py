@@ -66,7 +66,7 @@ class Utilisateurs:
     
     
     def utilisateur_exist(self, user_id):
-        query = f'SELECT id_utilisateur FROM {self.table} WHERE id_utilisateur = %s'
+        query = f'SELECT id FROM {self.table} WHERE id = %s'
         params = (user_id,)
         result = self.database.fetch(query, params)
         return bool(result)  # Vérifie si le résultat n'est pas vide
@@ -79,6 +79,7 @@ class Utilisateurs:
             self.current_user_id = user_id
         else:
             print(f"L'utilisateur avec l'ID {user_id} n'existe pas dans la base de données.")
+
 
     def get_current_user_id(self):
         return getattr(self, 'current_user_id', None)
@@ -129,19 +130,29 @@ class Utilisateurs:
         
         
         
+    def envoyer_message(self, room_name, email_utilisateur, message):
+        # Récupérer le nom et prénom de l'utilisateur
+        user_info = self.recuperer_infos_utilisateur(email_utilisateur)
+        if user_info is None:
+            print("Utilisateur non trouvé.")
+            return False
 
-
-    def recuperer_id_utilisateur(self, email_utilisateur):
-        # Récupérer l'ID de l'utilisateur à partir de la base de données
-        query = f"SELECT id_utilisateur FROM {self.table} WHERE email = %s"
-        params = (email_utilisateur,)
-        result = self.database.fetch(query, params)
-
-        # Vérifier si un résultat a été obtenu
-        if result:
-            # Retourner l'ID de l'utilisateur
-            return result[0][0]
-        else:
-            # Si aucun résultat n'est trouvé, retourner None
-            return None
+        # Insérer le message dans la base de données
+        current_time = str(datetime.now())
+        query = "INSERT INTO message (room_name, username, content, timestamp) VALUES (%s, %s, %s, %s)"
+        params = (room_name, f"{user_info['prenom']} {user_info['nom']}", message, current_time)
         
+        try:
+            self.database.executeQuery(query, params)
+            return True  # Succès
+        except Exception as e:
+            # Gestion des erreurs
+            print(f"Erreur lors de l'envoi du message : {e}")
+            return False  # Échec
+
+    def recuperer_infos_utilisateur(self, email_utilisateur):
+        # Récupérer les informations de l'utilisateur à partir de la base de données
+        query = f"SELECT nom, prenom FROM {self.table} WHERE email = %s"
+        params = (email_utilisateur,)
+        user_info = self.database.executeQuery(query, params)
+        print(user_info)

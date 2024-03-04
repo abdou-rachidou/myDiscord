@@ -7,7 +7,7 @@ from messages import Messages
 
 
 class ChatPage(customtkinter.CTk):
-    def __init__(self, room_name=None, current_user_id=None):
+    def __init__(self, room_name=None):
         super().__init__()
 
         self.chatroom = ChatRoom()
@@ -54,9 +54,6 @@ class ChatPage(customtkinter.CTk):
         # Bouton pour envoyer le message
         send_button = customtkinter.CTkButton(self, text="Envoyer", command=self.send_message)
         send_button.grid(row=2, column=0, pady=10, )
-
-        self.current_user_id = current_user_id  # Stockez l'ID de l'utilisateur
-
 
         # Lancer la méthode afficher_message après un court délai
         self.after(1, self.afficher_message)
@@ -125,11 +122,11 @@ class ChatPage(customtkinter.CTk):
             # Utiliser la salle de chat actuelle
             room_id = self.chatroom.get_current_room()
 
-            # Utiliser la méthode get_current_user_id pour obtenir automatiquement l'ID de l'utilisateur
-            current_user_id = self.user.recuperer_id_utilisateur()
-            print(current_user_id)
-            # Utilisez la méthode get_room_name_by_id pour obtenir dynamiquement le nom de la salle actuelle
-            room_name = "Club de Volley ball"
+        # Vous pouvez utiliser les instances d'Utilisateurs et ChatRoom pour récupérer les informations
+        current_user_id = "2"
+
+        # Utilisez la méthode get_room_name_by_id pour obtenir dynamiquement le nom de la salle actuelle
+        room_name = "Club de Volley ball"
         
         # Ajoutez des impressions pour vérifier les valeurs
         print(f"contenu_message: {contenu_message}")

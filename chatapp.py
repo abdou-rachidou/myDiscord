@@ -80,6 +80,8 @@ class ChatRoomPage(customtkinter.CTk):
             self.ouvrir_chat_page(room_name)
 
     def ouvrir_chat_page(self, room_name):
-        current_user_id = self.user.get_current_user_id()  # Assurez-vous d'avoir une méthode appropriée
-        chat_page = ChatPage(room_name=room_name, current_user_id=current_user_id)
+        # Créer une instance de la classe ChatPage avec le nom de la salle de chat
+        chat_page = ChatPage(room_name=room_name)
+
+        # Afficher la fenêtre de chat
         chat_page.mainloop()

@@ -16,19 +16,7 @@ class PageAccueil:
         self.gris = "#424549"
         self.gris_hover = "#313339"
         self.gris_clique = "#212225"
-        
-        # Obtenez les dimensions de l'écran
-        screen_width = self.root.winfo_screenwidth()
-        screen_height = self.root.winfo_screenheight()
-        
-        # Calculez les coordonnées pour centrer la fenêtre
-        x_position = (screen_width - 800) // 2
-        y_position = (screen_height - 600) // 2
-        
-        # Configurez la géométrie de la fenêtre
-        self.root.geometry(f"800x600+{x_position}+{y_position}")
-
-
+     
         self.afficher_widgets()
 
 

@@ -112,24 +112,9 @@ class PageConnexion:
         is_connected = self.utilisateur.connexion(email, mot_de_passe)
         if is_connected:
             messagebox.showinfo("Succès", "Connexion réussie.")
-            
-            # Récupérer l'ID de l'utilisateur après la connexion
-            user_id = self.utilisateur.recuperer_id_utilisateur(email)
-            print(f"ID de l'utilisateur récupéré : {user_id}")
-
-            
-            if user_id:
-                messagebox.showinfo("Succès", "Connexion réussie.")
-                # Stocker l'ID de l'utilisateur connecté
-                self.utilisateur.set_current_user_id(user_id)
-                
-                # Ouvrir la page de chat après la connexion
-                self.ouvrir_pagechatroom()
-            
-                # Ajoutez ici la logique pour ce que vous souhaitez faire après une connexion réussie.
-                self.annuler()
-            else:
-                messagebox.showerror("Erreur", "Erreur lors de la récupération de l'ID de l'utilisateur.")
+            self.ouvrir_pagechatroom()  # Appel de la nouvelle méthode
+            self.annuler()
+            # Ajoutez ici la logique pour ce que vous souhaitez faire après une connexion réussie.
         else:
             messagebox.showerror("Erreur", "Connexion échouée. Vérifiez vos informations de connexion.")
 
