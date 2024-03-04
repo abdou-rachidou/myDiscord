@@ -72,6 +72,9 @@ class ChatRoomPage(customtkinter.CTk):
             # Mettre à jour la Listbox avec la nouvelle salle de chat
             self.listbox.insert(tk.END, new_room_name)
             
+            # Vider le contenu de l'Entry
+            entry_new_chat.delete(0, tk.END)
+            
             self.chatroom.creer_salle_chat()
 
         button = customtkinter.CTkButton(self, text="Valider", command=button_callback)
