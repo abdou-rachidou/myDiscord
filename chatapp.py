@@ -5,6 +5,8 @@ from chatroom import ChatRoom
 from utilisateurs import Utilisateurs
 from chatpage import ChatPage
 
+
+
 class ChatRoomPage(customtkinter.CTk):
     def __init__(self, selected_room_name=None):
         super().__init__()
@@ -14,7 +16,6 @@ class ChatRoomPage(customtkinter.CTk):
         self.selected_room_name = selected_room_name
         self.title("My Discord App")
         self.geometry("1100x600")
-
         # Get screen width and height
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
@@ -25,6 +26,7 @@ class ChatRoomPage(customtkinter.CTk):
 
         # Set window geometry to be centered
         self.geometry(f"1100x600+{x_position}+{y_position}")
+
 
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure((0, 1), weight=1)
@@ -48,26 +50,22 @@ class ChatRoomPage(customtkinter.CTk):
         # Ajuster la taille de la Listbox
         self.listbox.config(width=25, height=15)  # Ajustez ces valeurs selon vos préférences
 
+
         # Créer un Label pour le titre "Créer un nouveau chat"
         title_new_chat_label = tk.Label(self, text="Créer un nouveau chat :", font=("Helvetica", 14, "bold"), pady=10)
         title_new_chat_label.grid(row=1, column=0, padx=15, pady=0, sticky="nw")
 
+    
         # Créer un Entry pour le nom de la nouvelle salle de chat avec style
-        self.entry_new_chat = tk.Entry(self, font=("Helvetica", 15), bg='white', bd=2, relief="solid")
-        self.entry_new_chat.grid(row=1, column=0, padx=15, pady=40, sticky="nw")
-        
-        # Créer un bouton avec la méthode button_callback
-        button = customtkinter.CTkButton(self, text="Valider", command=self.button_callback)
+        entry_new_chat = tk.Entry(self, font=("Helvetica", 15), bg='white', bd=2, relief="solid")
+        entry_new_chat.grid(row=1, column=0, padx=15, pady=40, sticky="nw")
+
+        def button_callback():
+            self.chatroom.creer_salle_chat()
+
+        button = customtkinter.CTkButton(self, text="Valider", command=button_callback)
         button.grid(row=1, column=0, padx=30, pady=70, sticky="nw")
 
-    def button_callback(self):
-        new_room_name = self.entry_new_chat.get()
-
-        if new_room_name:
-            self.chatroom.creer_salle_chat(new_room_name)
-            self.listbox.insert(tk.END, new_room_name)  # Ajoutez le nouveau chat à la liste
-        else:
-            print("Le nom de la salle de chat ne peut pas être vide.")
 
     def on_select(self, event):
         # Récupérer l'indice de la sélection
@@ -87,5 +85,3 @@ class ChatRoomPage(customtkinter.CTk):
 
         # Afficher la fenêtre de chat
         chat_page.mainloop()
-
-

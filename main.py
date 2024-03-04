@@ -17,6 +17,7 @@ class PageAccueil:
         self.gris_hover = "#313339"
         self.gris_clique = "#212225"
 
+        
         self.afficher_widgets()
 
 
