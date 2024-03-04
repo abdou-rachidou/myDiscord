@@ -79,8 +79,11 @@ class ChatRoomPage(customtkinter.CTk):
 
         button = customtkinter.CTkButton(self, text="Valider", command=button_callback)
         button.grid(row=1, column=0, padx=30, pady=70, sticky="nw")
-
-
+        
+        
+        logout_button = customtkinter.CTkButton(self, text="Déconnexion",)
+        logout_button.grid(row=1, column=1, padx=30, pady=70, sticky="nw")
+        
     def on_select(self, event):
         # Récupérer l'indice de la sélection
         selected_index = self.listbox.curselection()
