@@ -16,15 +16,15 @@ class ChatRoomPage(customtkinter.CTk):
         self.selected_room_name = selected_room_name
         self.title("My Discord App")
         self.geometry("1100x600")
-        # Get screen width and height
+        # Récupère la taille de l'écran
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
 
-        # Calculate window position to center it on the screen
+        # Calcul la fenêtre pour la mettre au milieu de l'écran
         x_position = (screen_width - 1100) // 2
         y_position = (screen_height - 600) // 2
 
-        # Set window geometry to be centered
+        # Centre la fenêtre
         self.geometry(f"1100x600+{x_position}+{y_position}")
 
 
@@ -39,17 +39,16 @@ class ChatRoomPage(customtkinter.CTk):
         self.listbox = tk.Listbox(self, font=("Helvetica", 14))
         self.listbox.grid(row=0, column=0, padx=5, pady=45, sticky="nw")
 
-        # Ajouter des éléments à la Listbox
+        # Ajoute des éléments à la Listbox
         salles_chat = self.chatroom.obtenir_salles_chat()
         for _, room_name in salles_chat:
             self.listbox.insert(tk.END, room_name)
             
-        # Ajouter un gestionnaire d'événements pour la sélection dans la Listbox
+        # Ajoute un gestionnaire d'événements pour la sélection dans la Listbox
         self.listbox.bind("<<ListboxSelect>>", self.on_select)
 
-        # Ajuster la taille de la Listbox
-        self.listbox.config(width=25, height=15)  # Ajustez ces valeurs selon vos préférences
-
+        # Ajuste la taille de la Listbox
+        self.listbox.config(width=25, height=15)
 
         # Créer un Label pour le titre "Créer un nouveau chat"
         title_new_chat_label = tk.Label(self, text="Créer un nouveau chat :", font=("Helvetica", 14, "bold"), pady=10)
@@ -66,13 +65,13 @@ class ChatRoomPage(customtkinter.CTk):
             # Obtenir le nom de la nouvelle salle de chat depuis l'Entry
             new_room_name = entry_new_chat.get()
             
-            # Appeler la méthode pour créer une nouvelle salle de chat
+            # Appel la méthode pour créer une nouvelle salle de chat
             self.chatroom.creer_salle_chat(new_room_name)
             
-            # Mettre à jour la Listbox avec la nouvelle salle de chat
+            # Met à jour la Listbox avec la nouvelle salle de chat
             self.listbox.insert(tk.END, new_room_name)
             
-            # Vider le contenu de l'Entry
+            # Vide le contenu de l'Entry
             entry_new_chat.delete(0, tk.END)
             
             self.chatroom.creer_salle_chat()
@@ -80,27 +79,26 @@ class ChatRoomPage(customtkinter.CTk):
         button = customtkinter.CTkButton(self, text="Valider", command=button_callback)
         button.grid(row=1, column=0, padx=30, pady=70, sticky="nw")
         
-        
         logout_button = customtkinter.CTkButton(self, text="Déconnexion",)
         logout_button.grid(row=1, column=1, padx=30, pady=70, sticky="nw")
         
     def on_select(self, event):
-        # Récupérer l'indice de la sélection
+        # Récupère l'indice de la sélection
         selected_index = self.listbox.curselection()
 
-        # Vérifier si une sélection a été effectuée
+        # Vérifie si une sélection a été effectuée
         if selected_index:
-            # Récupérer la valeur sélectionnée (chaîne de la forme "room_name")
+            # Récupère la valeur sélectionnée 
             room_name = self.listbox.get(selected_index[0])
 
-            # Appeler la méthode pour ouvrir la page de chat avec le nom de la salle
+            # Appel la méthode pour ouvrir la page de chat avec le nom de la salle
             self.ouvrir_chat_page(room_name)
 
     def ouvrir_chat_page(self, room_name):
         # Créer une instance de la classe ChatPage avec le nom de la salle de chat
         chat_page = ChatPage(room_name=room_name)
 
-        # Afficher la fenêtre de chat
+        # Affiche la fenêtre de chat
         chat_page.mainloop()
         
 app=ChatRoomPage()
