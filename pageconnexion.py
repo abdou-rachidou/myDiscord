@@ -3,7 +3,7 @@ from tkinter import Label, Entry, Button, messagebox
 from utilisateurs import Utilisateurs
 import os
 from PIL import Image, ImageTk
-from chatapp import ChatRoomPage
+from chatroompage import ChatRoomPage
 
 class PageConnexion:
     def __init__(self, root):

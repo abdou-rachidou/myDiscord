@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import Label, Button
-from inscription import PageInscription
-from connexion import PageConnexion
+from pageinscription import PageInscription
+from pageconnexion import PageConnexion
 from PIL import Image, ImageTk
 import os
 
@@ -73,7 +73,7 @@ class PageAccueil:
     def ouvrir_connexion(self):
         fenetre_connexion = tk.Toplevel(self.root)
         page_connexion = PageConnexion(fenetre_connexion)
-
+        
     def executer(self):
         self.root.mainloop()
 
