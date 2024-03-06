@@ -110,7 +110,7 @@ class PageConnexion:
             return
         
         is_connected = self.utilisateur.connexion(email, mot_de_passe)
-        self.annuler()
+        self.root.destroy()
         if is_connected:
             messagebox.showinfo("Succès", "Connexion réussie.")
             self.ouvrir_pagechatroom()  # Appel de la nouvelle méthode
@@ -120,8 +120,4 @@ class PageConnexion:
             
 
     def ouvrir_pagechatroom(self): 
-        chatroompage = ChatRoomPage()  # Passez la fenêtre en tant que parent
-
-
-    def annuler(self):
-        self.root.destroy()
+        chatroompage = ChatRoomPage()
