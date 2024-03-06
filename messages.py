@@ -52,13 +52,3 @@ class Messages:
         query = f'SELECT * FROM {self.table} WHERE id_utilisateur = %s'
         params = (id_utilisateur,)
         return self.database.fetch(query, params)
-
-    def get_messages_by_canal(self, id_canal):
-        query = f'SELECT * FROM {self.table} WHERE id_canal = %s'
-        params = (id_canal,)
-        return self.database.fetch(query, params)
-    
-    def get_message_id(self, id_message):
-        query = f'DELETE FROM {self.table} WHERE id_message=%s'
-        params = (int(id_message),)
-        self.database.executeQuery(query, params)
