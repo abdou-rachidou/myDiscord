@@ -108,15 +108,16 @@ class PageConnexion:
         if not self.utilisateur._validation_password(mot_de_passe):
             messagebox.showerror("Erreur", "Mot de passe invalide.")
             return
-
+        
         is_connected = self.utilisateur.connexion(email, mot_de_passe)
+        self.annuler()
         if is_connected:
             messagebox.showinfo("Succès", "Connexion réussie.")
             self.ouvrir_pagechatroom()  # Appel de la nouvelle méthode
-            self.annuler()
-            # Ajoutez ici la logique pour ce que vous souhaitez faire après une connexion réussie.
+
         else:
             messagebox.showerror("Erreur", "Connexion échouée. Vérifiez vos informations de connexion.")
+            
 
     def ouvrir_pagechatroom(self): 
         chatroompage = ChatRoomPage()  # Passez la fenêtre en tant que parent
